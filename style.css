@@ -1,0 +1,14 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+.form-container {
+  margin-bottom: 20px;
+}
+input, select, button {
+  margin: 5px;
+  padding: 8px;
+}
+.dashboard {
+  width: 400px;
+}
