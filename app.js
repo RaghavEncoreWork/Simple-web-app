@@ -1,23 +1,32 @@
-// Google Sheets API Setup
-const SHEET_URL = "https://script.google.com/macros/library/d/1ox8ig168-Mu1Tduh3R9R6-jQJ-eNX72CQZZEDwqlz-m8iNDeDVWEuo73/1" // Replace with your Apps Script Web App URL
+const SHEET_URL = "https://script.google.com/macros/s/YOUR-ID/exec"; // Replace with your URL
 
 let tasks = [];
 
 document.getElementById('taskForm').addEventListener('submit', async function(e) {
   e.preventDefault();
-  const name = document.getElementById('name').value;
-  const task = document.getElementById('task').value;
+  const name = document.getElementById('name').value.trim();
+  const task = document.getElementById('task').value.trim();
   const status = document.getElementById('status').value;
+
+  if (!name || !task) {
+    alert("Please fill in all fields");
+    return;
+  }
 
   const newTask = { name, task, status };
   tasks.push(newTask);
 
-  // Send to Google Sheets
-  await fetch(SHEET_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(newTask)
-  });
+  // Try saving to Google Sheets
+  try {
+    await fetch(SHEET_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newTask)
+    });
+    console.log("Task saved to Google Sheets");
+  } catch (err) {
+    console.warn("Google Sheets save failed:", err);
+  }
 
   updateTaskList();
   updateChart();
@@ -51,3 +60,4 @@ function updateChart() {
     }
   });
 }
+``
