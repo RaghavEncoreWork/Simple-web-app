@@ -1,26 +1,37 @@
-document.getElementById('taskForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  const name = document.getElementById('name').value;
-  const task = document.getElementById('task').value;
-  const status = document.getElementById('status').value;
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Task Manager</title>
+  style.css
+  https://cdn.jsdelivr.net/npm/chart.js</script>
+</head>
+<body>
+  <div class="container">
+    <h1>Task Manager</h1>
+    <div class="form-container">
+      <form id="taskForm">
+        <input type="text" id="name" placeholder="Name" required>
+        <input type="text" id="task" placeholder="Task" required>
+        <select id="status">
+          <option value="Pending">Pending</option>
+          <option value="Completed">Completed</option>
+        </select>
+        <button type="submit">Add Task</button>
+      </form>
+    </div>
 
-  // Placeholder: Send data to Google Sheets API
-  console.log(`Name: ${name}, Task: ${task}, Status: ${status}`);
+    <div class="dashboard">
+      <h2>Dashboard</h2>
+      <canvas id="taskChart"></canvas>
+    </div>
 
-  // Update chart (dummy data for now)
-  updateChart();
-});
-
-function updateChart() {
-  const ctx = document.getElementById('taskChart').getContext('2d');
-  new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels: ['Completed', 'Pending'],
-      datasets: [{
-        data: [5, 10], // Replace with dynamic data
-        backgroundColor: ['#4caf50', '#f44336']
-      }]
-    }
-  });
-}
+    <div class="task-list">
+      <h2>Tasks</h2>
+      <ul id="taskList"></ul>
+    </div>
+  </div>
+  app.js</script>
+</body>
+</html>
+``
