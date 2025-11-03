@@ -1,37 +1,53 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Task Manager</title>
-  style.css
-  https://cdn.jsdelivr.net/npm/chart.js</script>
-</head>
-<body>
-  <div class="container">
-    <h1>Task Manager</h1>
-    <div class="form-container">
-      <form id="taskForm">
-        <input type="text" id="name" placeholder="Name" required>
-        <input type="text" id="task" placeholder="Task" required>
-        <select id="status">
-          <option value="Pending">Pending</option>
-          <option value="Completed">Completed</option>
-        </select>
-        <button type="submit">Add Task</button>
-      </form>
-    </div>
+// Google Sheets API Setup
+const SHEET_URL = "YOUR_GOOGLE_SHEET_WEB_APP_URL"; // Replace with your Apps Script Web App URL
 
-    <div class="dashboard">
-      <h2>Dashboard</h2>
-      <canvas id="taskChart"></canvas>
-    </div>
+let tasks = [];
 
-    <div class="task-list">
-      <h2>Tasks</h2>
-      <ul id="taskList"></ul>
-    </div>
-  </div>
-  app.js</script>
-</body>
-</html>
-``
+document.getElementById('taskForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const name = document.getElementById('name').value;
+  const task = document.getElementById('task').value;
+  const status = document.getElementById('status').value;
+
+  const newTask = { name, task, status };
+  tasks.push(newTask);
+
+  // Send to Google Sheets
+  await fetch(SHEET_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(newTask)
+  });
+
+  updateTaskList();
+  updateChart();
+  document.getElementById('taskForm').reset();
+});
+
+function updateTaskList() {
+  const list = document.getElementById('taskList');
+  list.innerHTML = '';
+  tasks.forEach(t => {
+    const li = document.createElement('li');
+    li.textContent = `${t.name} - ${t.task} [${t.status}]`;
+    list.appendChild(li);
+  });
+}
+
+function updateChart() {
+  const completed = tasks.filter(t => t.status === 'Completed').length;
+  const pending = tasks.filter(t => t.status === 'Pending').length;
+
+  const ctx = document.getElementById('taskChart').getContext('2d');
+  if (window.taskChart) window.taskChart.destroy();
+  window.taskChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Completed', 'Pending'],
+      datasets: [{
+        data: [completed, pending],
+        backgroundColor: ['#4caf50', '#f44336']
+      }]
+    }
+  });
+}
