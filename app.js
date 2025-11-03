@@ -1,5 +1,5 @@
 // Google Sheets API Setup
-const SHEET_URL = "YOUR_GOOGLE_SHEET_WEB_APP_URL"; // Replace with your Apps Script Web App URL
+const SHEET_URL = "https://docs.google.com/spreadsheets/d/1rXgEVSn328DaZJ3UlOTqoOcExemWCx05LLg-jK0-O88/edit?gid=0#gid=0"; // Replace with your Apps Script Web App URL
 
 let tasks = [];
 
