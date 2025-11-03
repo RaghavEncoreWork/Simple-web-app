@@ -1,5 +1,5 @@
 // Google Sheets API Setup
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbykjoKE8DXzwqGDc3BX5-l7-ruoUujiVa85cDhTpI25LhM2g7nagSFTmMlWATSgw_J2/exec" // Replace with your Apps Script Web App URL
+const SHEET_URL = "https://script.google.com/macros/library/d/1ox8ig168-Mu1Tduh3R9R6-jQJ-eNX72CQZZEDwqlz-m8iNDeDVWEuo73/1" // Replace with your Apps Script Web App URL
 
 let tasks = [];
 
